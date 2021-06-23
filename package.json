@@ -1,7 +1,11 @@
 {
-  "name": "webdoan",
+  "name": "vietjob",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "npm": "7.11.2",
+    "node": "16.1.0"
+  },
   "dependencies": {
     "@ckeditor/ckeditor5-build-classic": "^25.0.0",
     "@ckeditor/ckeditor5-react": "^3.0.0",
