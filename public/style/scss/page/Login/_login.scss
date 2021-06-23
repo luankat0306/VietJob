@@ -1,0 +1,173 @@
+.bg-login {
+  /* The image used */
+  background-image: url("../../../../img/login-bg.jpg");
+  image-rendering: optimizeSpeed;
+
+  /* Full height */
+  height: 100%;
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.bg-register {
+  /* The image used */
+  background-image: url("../../../../img/login-bg.jpg");
+  image-rendering: optimizeSpeed;
+
+  /* Full height */
+  height: 100%;
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.login {
+  &__content {
+    margin-left: 20%;
+    margin-right: 20%;
+    height: 722px;
+
+    .login__form {
+      background: rgba(255, 255, 255, 0.8);
+      border: 1px solid #bdbdbd;
+      border-radius: 5px;
+      -moz-box-shadow: 0 0 8px #808451;
+      -webkit-box-shadow: 0 0 15px #808451;
+      box-shadow: 0 0 15px #808451;
+      padding: 5%;
+      height: auto;
+      width: 50%;
+      margin-top: 12%;
+      margin-left: 20%;
+
+      .login__title {
+        font-weight: bold;
+        font-size: 30px;
+        display: block;
+        text-align: center;
+      }
+
+      form {
+        .msg {
+          color: red;
+          margin-bottom: 1%;
+        }
+        .form-label {
+          font-weight: bold;
+        }
+        margin-top: 4%;
+        .form-control {
+          width: 100%;
+        }
+      }
+    }
+
+    .register__form {
+      background: rgba(255, 255, 255, 0.8);
+      border: 1px solid #bdbdbd;
+      border-radius: 5px;
+      -moz-box-shadow: 0 0 8px #808451;
+      -webkit-box-shadow: 0 0 15px #808451;
+      box-shadow: 0 0 15px #808451;
+      padding: 5%;
+      height: auto;
+      width: 60%;
+      margin-top: 12%;
+      margin-left: 20%;
+      .register__title {
+        font-weight: bold;
+        font-size: 30px;
+        display: block;
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      .msg {
+        color: red;
+        margin-bottom: 1%;
+      }
+      form {
+        margin-top: 2%;
+        .form-label {
+          font-weight: bold;
+        }
+        .msg_fullname {
+          position: absolute;
+          margin-left: 87%;
+          margin-top: 1%;
+          color: red;
+          display: none;
+
+          span {
+            display: none;
+          }
+        }
+        .msg_fullname:hover {
+          .msg_name {
+            display: block;
+            margin-left: 12%;
+            width: 250px;
+            margin-top: -8%;
+          }
+        }
+        .form-control {
+          width: 100%;
+        }
+      }
+      .password {
+        .form-control {
+          width: 43%;
+        }
+        .msg_password {
+          color: red;
+          position: absolute;
+          margin-top: 1%;
+          margin-left: 39%;
+          display: none;
+          .msg_pass {
+            display: none;
+          }
+        }
+        .msg_password:hover {
+          .msg_pass {
+            display: block;
+            margin-top: -8%;
+            margin-left: -105%;
+          }
+        }
+      }
+      .confirm {
+        position: absolute !important;
+        margin-top: -85px;
+        margin-left: 26%;
+
+        .form-control {
+          width: 98%;
+        }
+      }
+    }
+  }
+}
+.jobseeker-employer-link {
+  a {
+    color: black;
+    font-weight: bold;
+    line-height: 60px;
+    text-align: center;
+    display: inline-block;
+    width: 50%;
+    border-bottom: 3px solid gray;
+
+    &:hover {
+      text-decoration: none;
+    }
+
+    &.active {
+      border-bottom: 3px solid #15cdfc;
+      color: #15cdfc;
+    }
+  }
+}

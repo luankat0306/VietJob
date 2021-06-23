@@ -1,0 +1,40 @@
+.cover {
+  img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 12px;
+  }
+}
+#left {
+  text-align: left;
+}
+#right {
+  text-align: right;
+}
+.job-post {
+  .list-item {
+    margin-bottom: 20px;
+  }
+  h5 {
+    font-weight: bold;
+  }
+  h6 {
+    font-weight: bold;
+  }
+}
+.table-header {
+  background: linear-gradient(45deg, #48c6ef, #6f86d6);
+  color: whitesmoke;
+  font-weight: bold;
+  text-align: center;
+}
+.table-body {
+  text-align: center;
+}
+#approve-btn {
+  float: left;
+}
+#decline-btn {
+  float: right;
+}
