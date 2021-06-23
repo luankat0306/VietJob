@@ -1,18 +1,18 @@
-import Axios from "axios";
+import axios from "./index";
 import authHeader from "../services/authHeader";
-const API_URL = "http://localhost:8080/api/jobsaveds";
+const API_URL = "/api/jobsaveds";
 class JobSavedService {
-    getJobSavedByApplicant(idApplicant) {
-        return Axios.get(API_URL + "/" + idApplicant, authHeader());
-    }
+  getJobSavedByApplicant(idApplicant) {
+    return axios.get(API_URL + "/" + idApplicant, authHeader());
+  }
 
-    createJobSaved(jobSavedForm) {
-        return Axios.post(API_URL, jobSavedForm, authHeader());
-    }
+  createJobSaved(jobSavedForm) {
+    return axios.post(API_URL, jobSavedForm, authHeader());
+  }
 
-    deleteJobSaved(idJobSaved) {
-        return Axios.delete(API_URL + "/" + idJobSaved, authHeader());
-    }
+  deleteJobSaved(idJobSaved) {
+    return axios.delete(API_URL + "/" + idJobSaved, authHeader());
+  }
 }
 
 export default new JobSavedService();

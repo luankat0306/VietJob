@@ -1,25 +1,25 @@
-import Axios from "axios";
+import axios from "./index";
 import authHeader from "./authHeader";
-const API_URL = "http://localhost:8080/api/jobs";
+const API_URL = "/api/jobs";
 class JobService {
   getJobs(page, rowPerPage) {
-    return Axios.get(API_URL + `?page=${page - 1}&rowPerPage=${rowPerPage}`, authHeader());
+    return axios.get(API_URL + `?page=${page - 1}&rowPerPage=${rowPerPage}`, authHeader());
   }
 
   getJobsPopular(page, rowPerPage) {
-    return Axios.get(API_URL + `/popular?page=${page}&rowPerPage=${rowPerPage}`, authHeader());
+    return axios.get(API_URL + `/popular?page=${page}&rowPerPage=${rowPerPage}`, authHeader());
   }
 
   getJobsByEnterprise(id) {
-    return Axios.get(API_URL + "/enterprises/" + id, authHeader());
+    return axios.get(API_URL + "/enterprises/" + id, authHeader());
   }
 
   getJobsByCareer(id) {
-    return Axios.get(API_URL + "/career/" + id, authHeader());
+    return axios.get(API_URL + "/career/" + id, authHeader());
   }
 
   searchJobs(keywordForm) {
-    return Axios.get(
+    return axios.get(
       API_URL + "/search",
       {
         params: {
@@ -35,18 +35,18 @@ class JobService {
   }
 
   getJob(id) {
-    return Axios.get(API_URL + "/" + id, authHeader());
+    return axios.get(API_URL + "/" + id, authHeader());
   }
 
   createJob(job) {
-    return Axios.post(API_URL, job, authHeader());
+    return axios.post(API_URL, job, authHeader());
   }
   topFiveJobs() {
-    return Axios.get(API_URL + "/chart/top-five-jobs", authHeader());
+    return axios.get(API_URL + "/chart/top-five-jobs", authHeader());
   }
 
   deleteJob(id) {
-    return Axios.delete(API_URL + "/" + id, authHeader());
+    return axios.delete(API_URL + "/" + id, authHeader());
   }
 }
 

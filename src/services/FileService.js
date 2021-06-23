@@ -1,10 +1,9 @@
-import Axios from "axios";
-
-const API_URL = "http://localhost:8080/api";
+import axios from "./index";
+const API_URL = "/api";
 const user = JSON.parse(localStorage.getItem("user"));
 class FileService {
   uploadFile(id, file) {
-    return Axios.post(API_URL + "/uploadFile/" + id, file, {
+    return axios.post(API_URL + "/uploadFile/" + id, file, {
       headers: {
         "Content-Type": "multipart/form-data",
         Authorization: "Bearer " + user.accessToken,
