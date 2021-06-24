@@ -12,7 +12,7 @@ class FileService {
   }
 
   downloadFile(filename) {
-    return API_URL + "/downloadFile/" + filename;
+    return axios.get(API_URL + "/downloadFile/" + filename);
   }
 }
 export default new FileService();
