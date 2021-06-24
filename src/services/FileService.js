@@ -12,7 +12,7 @@ class FileService {
   }
 
   downloadFile(filename) {
-    const uri = axios.getUri();
+    const uri = "https://vietjobapi.herokuapp.com";
     return uri + API_URL + "/downloadFile/" + filename;
   }
 }
