@@ -12,7 +12,8 @@ class FileService {
   }
 
   downloadFile(filename) {
-    return axios.get(API_URL + "/downloadFile/" + filename);
+    const uri = axios.getUri();
+    return uri + API_URL + "/downloadFile/" + filename;
   }
 }
 export default new FileService();
