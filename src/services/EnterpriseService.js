@@ -16,7 +16,11 @@ class EnterpriseService {
     return axios.get(API_URL + "/users/" + idUser, authHeader());
   }
   createEnterprise(enterprise) {
-    return axios.post(API_URL + "/signup", enterprise, authHeader());
+    return axios.post(
+      API_URL + "/enterprises/signup",
+      enterprise,
+      authHeader()
+    );
   }
 
   updateEnterprise(id, enterprise) {
@@ -28,7 +32,11 @@ class EnterpriseService {
   }
 
   changeDescription(id, enterpriseForm) {
-    return axios.post(API_URL + "/change-description/" + id, enterpriseForm, authHeader());
+    return axios.post(
+      API_URL + "/change-description/" + id,
+      enterpriseForm,
+      authHeader()
+    );
   }
   topFiveEnterprises() {
     return axios.get(API_URL + "/chart/top-five-enterprises", authHeader());

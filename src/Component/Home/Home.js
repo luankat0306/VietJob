@@ -23,12 +23,16 @@ export default class Home extends Component {
   }
 
   componentDidMount() {
-    CandidateService.top5().then((res) => this.setState({ enterprises: res.data }));
+    CandidateService.top5().then((res) =>
+      this.setState({ enterprises: res.data })
+    );
     this.fetchJobsPopular(this.state.page);
   }
 
   fetchJobsPopular(page) {
-    JobService.getJobsPopular(page - 1, 4).then((res) => this.setState({ jobs: res.data.jobs, count: res.data.count }));
+    JobService.getJobsPopular(page - 1, 4).then((res) =>
+      this.setState({ jobs: res.data.jobs, count: res.data.count })
+    );
   }
 
   handleChangePage(e, newPage) {
@@ -38,7 +42,6 @@ export default class Home extends Component {
 
   render() {
     const { enterprises, jobs, page, count } = this.state;
-    console.log(enterprises);
     return (
       <>
         <NavBar background="rgba(0, 0, 0, 0.225)" />
@@ -50,19 +53,46 @@ export default class Home extends Component {
 
         <div className="body">
           <br />
-          <h2 style={{ fontWeight: 300, color: "#484848", textAlign: "center" }}>Các Công Ty Hàng Đầu</h2>
+          <h2
+            style={{ fontWeight: 300, color: "#484848", textAlign: "center" }}
+          >
+            Các Công Ty Hàng Đầu
+          </h2>
           <Container>
             <Grid container justify="center" className="company-box">
               {enterprises.map((enterprise) => (
-                <Card style={{ marginLeft: 10, marginRight: 10, boxShadow: "0 1px 4px 0px rgb(0 0 0 / 35%)" }}>
-                  <img src={FileService.downloadFile(enterprise.user.image)} alt="" />
-                </Card>
+                <Link to={`/nguoi-tim-viec/chi-tiet-cong-ty/${enterprise.id}`}>
+                  <Card
+                    style={{
+                      marginLeft: 10,
+                      marginRight: 10,
+                      boxShadow: "0 1px 4px 0px rgb(0 0 0 / 35%)",
+                      borderRadius: 8,
+                    }}
+                  >
+                    <img
+                      src={FileService.downloadFile(enterprise.user.image)}
+                      alt=""
+                    />
+                  </Card>
+                </Link>
               ))}
             </Grid>
           </Container>
           <br />
-          <h2 style={{ fontWeight: 300, color: "#484848", textAlign: "center" }}>Việc Làm Tốt Nhất</h2>
-          <Container disableGutters maxWidth="lg">
+          <h2
+            style={{ fontWeight: 300, color: "#484848", textAlign: "center" }}
+          >
+            Việc Làm Tốt Nhất
+          </h2>
+          <Card
+            style={{
+              marginLeft: "5%",
+              marginRight: "5%",
+              padding: 20,
+              borderRadius: 8,
+            }}
+          >
             <div className="company-box">
               <Grid container spacing={5}>
                 {jobs.map((job) => (
@@ -72,14 +102,20 @@ export default class Home extends Component {
                         <Grid item xs={3}>
                           <img
                             style={{ height: 100, width: 100 }}
-                            src={FileService.downloadFile(job.enterprise.user.image)}
+                            src={FileService.downloadFile(
+                              job.enterprise.user.image
+                            )}
                             alt=""
                           />
                         </Grid>
                         <Grid item xs={8} style={{ textAlign: "start" }}>
                           <Link
                             to={`/nguoi-tim-viec/chi-tiet-cong-viec/${job.id}`}
-                            style={{ fontSize: 17, fontWeight: 700, marginBottom: 0 }}
+                            style={{
+                              fontSize: 17,
+                              fontWeight: 700,
+                              marginBottom: 0,
+                            }}
                           >
                             {job.title}
                           </Link>
@@ -113,8 +149,7 @@ export default class Home extends Component {
               color="primary"
               size="small"
             />
-          </Container>
-
+          </Card>
           <br />
         </div>
 

@@ -1,5 +1,6 @@
+import { Card, Grid } from "@material-ui/core";
 import React, { Component } from "react";
-import { Alert, Button, Col, Container, Row } from "react-bootstrap";
+import { Alert, Button, Col, NavLink, Row } from "react-bootstrap";
 import { FcAbout, FcInfo } from "react-icons/fc";
 import AuthService from "../../../services/AuthService";
 import CandidateService from "../../../services/CandidateService";
@@ -8,9 +9,6 @@ import JobSavedService from "../../../services/JobSavedService";
 import JobService from "../../../services/JobService";
 import ResumeService from "../../../services/ResumeService";
 import JobSeekerIndex from "../JobSeekerIndex";
-import { Card, Grid } from "@material-ui/core";
-import { Link } from "react-router-dom";
-import { Pagination } from "@material-ui/lab";
 
 export default class JobDetail extends Component {
   constructor(props) {
@@ -63,16 +61,26 @@ export default class JobDetail extends Component {
     this.sendCV = this.sendCV.bind(this);
     this.saveCV = this.saveCV.bind(this);
   }
+
   componentDidMount() {
+    const applicantId = localStorage.getItem("id");
+    this.fetchData();
+    ResumeService.getResumeByApplicant(applicantId).then((res) => {
+      this.setState({ resume: res.data });
+    });
+  }
+
+  fetchData() {
     const {
       match: { params },
     } = this.props;
-    const applicantId = localStorage.getItem("id");
 
     JobService.getJob(params.id)
       .then((res) => {
         this.setState({ job: res.data });
-        JobService.getJobsByCareer(res.data.career.id).then((res) => this.setState({ jobs: res.data }));
+        JobService.getJobsByCareer(params.id, res.data.career.id).then((res) =>
+          this.setState({ jobs: res.data })
+        );
       })
       .then(() => {
         try {
@@ -82,10 +90,13 @@ export default class JobDetail extends Component {
           }
         } catch (error) {}
       });
+  }
 
-    ResumeService.getResumeByApplicant(applicantId).then((res) => {
-      this.setState({ resume: res.data });
-    });
+  componentDidUpdate(prevProps) {
+    // Typical usage (don't forget to compare props):
+    if (this.props.match.params.id !== prevProps.match.params.id) {
+      this.fetchData();
+    }
   }
 
   sendCV(jobId) {
@@ -99,7 +110,9 @@ export default class JobDetail extends Component {
         (error) => {
           this.setState({
             error:
-              (error.response && error.response.data && error.response.data.message) ||
+              (error.response &&
+                error.response.data &&
+                error.response.data.message) ||
               error.message ||
               error.toString(),
           });
@@ -114,7 +127,9 @@ export default class JobDetail extends Component {
       applicant: { id: applicantId },
       job: { id: jobId },
     };
-    JobSavedService.createJobSaved(cv).then(() => this.setState({ success: "Lưu thành công" }));
+    JobSavedService.createJobSaved(cv).then(() =>
+      this.setState({ success: "Lưu thành công" })
+    );
   }
 
   render() {
@@ -134,14 +149,26 @@ export default class JobDetail extends Component {
             </Alert>
           )}
           <div className="box">
-            <Container className="content-jobdetail">
+            <Card
+              style={{
+                padding: 20,
+                borderRadius: 8,
+              }}
+              className="content-jobdetail"
+            >
               {this.state.auth && (
                 <Row>
                   <Col style={{ textAlign: "right" }}>
-                    <Button variant="success" onClick={() => this.sendCV(job.id)}>
+                    <Button
+                      variant="success"
+                      onClick={() => this.sendCV(job.id)}
+                    >
                       Nộp Hồ Sơ
                     </Button>
-                    <Button variant="primary" onClick={() => this.saveCV(job.id)}>
+                    <Button
+                      variant="primary"
+                      onClick={() => this.saveCV(job.id)}
+                    >
                       Lưu Công Việc
                     </Button>
                   </Col>
@@ -150,7 +177,10 @@ export default class JobDetail extends Component {
               <Row>
                 <Col className="jobdetail-col">
                   <div className="jobdetail-img">
-                    <img src={FileService.downloadFile(job.enterprise.user.image)} alt=""></img>
+                    <img
+                      src={FileService.downloadFile(job.enterprise.user.image)}
+                      alt=""
+                    />
                   </div>
 
                   <div className="jobdetail-header">
@@ -196,11 +226,13 @@ export default class JobDetail extends Component {
                     Mô Tả Công Việc
                   </h4>
                   <div className="job-describe">
-                    <p
-                      dangerouslySetInnerHTML={{
-                        __html: job.description,
-                      }}
-                    ></p>
+                    <Col>
+                      <p
+                        dangerouslySetInnerHTML={{
+                          __html: job.description,
+                        }}
+                      />
+                    </Col>
                   </div>
                 </Col>
               </Row>
@@ -220,56 +252,125 @@ export default class JobDetail extends Component {
                   </div>
                 </Col>
               </Row>
-            </Container>
+            </Card>
+
+            <br />
+            {jobs.length > 0 && (
+              <React.Fragment>
+                <h2
+                  style={{
+                    fontWeight: 700,
+                    color: "#484848",
+                    textAlign: "center",
+                  }}
+                >
+                  Việc Làm Liên Quan
+                </h2>
+                <Card
+                  style={{
+                    padding: 20,
+                    borderRadius: 8,
+                  }}
+                  className="content-jobdetail"
+                >
+                  <div className="company-box">
+                    <Grid container spacing={5}>
+                      {jobs.map((job) => (
+                        <Grid item xs={6}>
+                          <div style={{ borderBottom: "1px solid #E5E5E5" }}>
+                            <Grid
+                              container
+                              justify="center"
+                              alignItems="center"
+                            >
+                              <Grid item xs={3}>
+                                <img
+                                  style={{
+                                    height: 100,
+                                    width: 100,
+                                    objectFit: "contain",
+                                  }}
+                                  src={FileService.downloadFile(
+                                    job.enterprise.user.image
+                                  )}
+                                  alt=""
+                                />
+                              </Grid>
+                              <Grid item xs={8} style={{ textAlign: "start" }}>
+                                <p
+                                  className="job-title"
+                                  style={{
+                                    fontSize: 17,
+                                    fontWeight: 700,
+                                    marginBottom: 0,
+                                    cursor: "pointer",
+                                  }}
+                                  onClick={() =>
+                                    this.props.history.push(
+                                      `/nguoi-tim-viec/chi-tiet-cong-viec/${job.id}`
+                                    )
+                                  }
+                                >
+                                  {job.title}
+                                </p>
+                                <p style={{ fontSize: 14 }}>
+                                  {job.enterprise.name}
+                                </p>
+                              </Grid>
+                              <Grid item xs={1}>
+                                <div
+                                  style={{
+                                    width: "fit-content",
+                                    padding: 3,
+                                    backgroundColor: "#FF5661",
+                                    color: "white",
+                                    borderRadius: 3,
+                                  }}
+                                >
+                                  HOT
+                                </div>
+                              </Grid>
+                            </Grid>
+                          </div>
+                        </Grid>
+                      ))}
+                    </Grid>
+                  </div>
+                </Card>
+              </React.Fragment>
+            )}
           </div>
           <br />
-          <h2 style={{ fontWeight: 300, color: "#484848", textAlign: "center" }}>Việc Làm Liên Quan</h2>
-          <Container disableGutters maxWidth="lg">
-            <div className="company-box">
-              <Grid container spacing={5}>
-                {jobs &&
-                  jobs.map((job) => (
-                    <Grid item xs={6}>
-                      <div style={{ borderBottom: "1px solid #E5E5E5" }}>
-                        <Grid container justify="center" alignItems="center">
-                          <Grid item xs={3}>
-                            <img
-                              style={{ height: 100, width: 100 }}
-                              src={FileService.downloadFile(job.enterprise.user.image)}
-                              alt=""
-                            />
-                          </Grid>
-                          <Grid item xs={8} style={{ textAlign: "start" }}>
-                            <Link
-                              to={`/nguoi-tim-viec/chi-tiet-cong-viec/${job.id}`}
-                              style={{ fontSize: 17, fontWeight: 700, marginBottom: 0 }}
-                            >
-                              {job.title}
-                            </Link>
-                            <p style={{ fontSize: 14 }}>{job.enterprise.name}</p>
-                          </Grid>
-                          <Grid item xs={1}>
-                            <div
-                              style={{
-                                width: "fit-content",
-                                padding: 3,
-                                backgroundColor: "#FF5661",
-                                color: "white",
-                                borderRadius: 3,
-                              }}
-                            >
-                              HOT
-                            </div>
-                          </Grid>
-                        </Grid>
-                      </div>
-                    </Grid>
-                  ))}
-              </Grid>
-            </div>
-          </Container>
-
-          <br />
+          <div className="footer">
+            <Row>
+              <Col>
+                <h6>VietJobs</h6>
+                <NavLink>Liên Hệ</NavLink>
+                <NavLink>Hỏi Đáp</NavLink>
+                <NavLink>Thỏa Thuận Sử Dụng</NavLink>
+                <NavLink>Quy Định Bảo Mật</NavLink>
+              </Col>
+              <Col>
+                <h6>Việc Làm Theo Tỉnh Thành</h6>
+                <NavLink>Hồ Chí Minh</NavLink>
+                <NavLink>Hà Nội</NavLink>
+                <NavLink>Đà Nẵng</NavLink>
+              </Col>
+              <Col>
+                <h6>Việc Làm Theo Ngành Nghề</h6>
+                <NavLink>Kế Toán</NavLink>
+                <NavLink>IT-Phần Mềm</NavLink>
+                <NavLink>Giáo Dục-Đào Tạo</NavLink>
+                <NavLink>Ngân Hàng</NavLink>
+              </Col>
+              <Col>
+                <h6>Hỗ Trợ</h6>
+                <p>Võ Trí Luân</p>
+                <p>Trần Vũ Luân</p>
+                <p>Trần Phúc Hậu</p>
+              </Col>
+            </Row>
+          </div>
         </div>
       </div>
     );

@@ -1,5 +1,5 @@
 .box {
-  background-color: #fff;
+  background-color: transparent;
   margin: 20px auto;
   padding: 12px;
   // border: 2px solid #888;
@@ -37,11 +37,18 @@
       font-size: 17px;
       font-weight: bolder;
       color: #666;
+
+      &:hover {
+        color: #15cdfc;
+      }
     }
     .job-enterpriceName {
       font-size: 14px;
       font-weight: light;
       color: #999;
+      &:hover {
+        color: #15cdfc;
+      }
     }
 
     h3 {
@@ -71,11 +78,10 @@
       width: 200px;
       height: 200px;
       object-fit: contain;
-      border-bottom: 1px solid rgba(0, 0, 0, 0.125);
       border-radius: 12px;
     }
     .jobdetail-col {
-      padding: 10px;
+      padding: 15px;
       .jobdetail-cover {
         img {
           width: 100%;
@@ -106,6 +112,7 @@
         h1 {
           text-align: center;
           font-size: xx-large;
+          font-weight: bold;
           color: #212529;
         }
         h2 {

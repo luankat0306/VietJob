@@ -7,7 +7,7 @@ class ApplicantService {
   }
 
   createApplicant(applicant) {
-    return axios.post(API_URL + "/signup", applicant);
+    return axios.post(API_URL + "/applicants/signup", applicant);
   }
 
   getApplicant(id) {
@@ -30,7 +30,11 @@ class ApplicantService {
   }
 
   changeSocial(applicantId, socialForm) {
-    return axios.post(API_URL + "/change-social/" + applicantId, socialForm, authHeader());
+    return axios.post(
+      API_URL + "/change-social/" + applicantId,
+      socialForm,
+      authHeader()
+    );
   }
 }
 

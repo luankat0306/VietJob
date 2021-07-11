@@ -3,9 +3,7 @@ import React, { Component } from "react";
 import { Col, Row } from "react-bootstrap";
 import { FcHome, FcMoneyTransfer } from "react-icons/fc";
 import { Link } from "react-router-dom";
-import AuthService from "../../services/AuthService";
 import FileService from "../../services/FileService";
-import ResumeService from "../../services/ResumeService";
 export default class JobCard extends Component {
   constructor(props) {
     super(props);
@@ -15,20 +13,6 @@ export default class JobCard extends Component {
     };
     // this.sendCV = this.sendCV.bind(this);
     // this.saveCV = this.saveCV.bind(this);
-  }
-  componentDidMount() {
-    const applicantId = localStorage.getItem("id");
-
-    ResumeService.getResumeByApplicant(applicantId).then((res) => {
-      this.setState({ resume: res.data });
-    });
-
-    try {
-      const token = AuthService.getCurrentUser();
-      if (token.roles.includes("ROLE_USER")) {
-        this.setState({ auth: true });
-      }
-    } catch (error) {}
   }
 
   // sendCV(jobId) {
@@ -66,23 +50,30 @@ export default class JobCard extends Component {
       <Card className="content">
         <CardMedia
           style={{
-            height: "100%",
             padding: 20,
             backgroundSize: "contain",
             backgroundOrigin: "content-box",
-            width: 151,
+            width: 150,
           }}
           image={FileService.downloadFile(job.enterprise.user.image)}
         />
-        <div style={{ width: "100%", display: "flex", flexDirection: "column" }}>
+        <div
+          style={{ width: "100%", display: "flex", flexDirection: "column" }}
+        >
           <CardContent style={{ flex: "1 0 auto", alignItems: "stretch" }}>
-            <Typography>
-              <Link className="job-title" to={`/nguoi-tim-viec/chi-tiet-cong-viec/${job.id}`}>
+            <Typography style={{ minHeight: 50 }}>
+              <Link
+                className="job-title"
+                to={`/nguoi-tim-viec/chi-tiet-cong-viec/${job.id}`}
+              >
                 {job.title}
               </Link>
             </Typography>
             <Typography>
-              <Link className="job-enterpriceName" to={`/nguoi-tim-viec/chi-tiet-cong-ty/${job.enterprise.id}`}>
+              <Link
+                className="job-enterpriceName"
+                to={`/nguoi-tim-viec/chi-tiet-cong-ty/${job.enterprise.id}`}
+              >
                 {job.enterprise.name}
               </Link>
             </Typography>

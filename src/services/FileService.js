@@ -12,7 +12,7 @@ class FileService {
   }
 
   downloadFile(filename) {
-    const uri = "https://vietjobapi.herokuapp.com";
+    const uri = "http://localhost:8080";
     return uri + API_URL + "/downloadFile/" + filename;
   }
 }

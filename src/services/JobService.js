@@ -3,19 +3,28 @@ import authHeader from "./authHeader";
 const API_URL = "/api/jobs";
 class JobService {
   getJobs(page, rowPerPage) {
-    return axios.get(API_URL + `?page=${page - 1}&rowPerPage=${rowPerPage}`, authHeader());
+    return axios.get(
+      API_URL + `?page=${page - 1}&rowPerPage=${rowPerPage}`,
+      authHeader()
+    );
   }
 
   getJobsPopular(page, rowPerPage) {
-    return axios.get(API_URL + `/popular?page=${page}&rowPerPage=${rowPerPage}`, authHeader());
+    return axios.get(
+      API_URL + `/popular?page=${page}&rowPerPage=${rowPerPage}`,
+      authHeader()
+    );
   }
 
   getJobsByEnterprise(id) {
     return axios.get(API_URL + "/enterprises/" + id, authHeader());
   }
 
-  getJobsByCareer(id) {
-    return axios.get(API_URL + "/career/" + id, authHeader());
+  getJobsByCareer(jobId, careerID) {
+    return axios.get(
+      API_URL + "/" + jobId + "/career/" + careerID,
+      authHeader()
+    );
   }
 
   searchJobs(keywordForm) {
