@@ -7,7 +7,7 @@ class ApplicantService {
   }
 
   createApplicant(applicant) {
-    return axios.post(API_URL + "/applicants/signup", applicant);
+    return axios.post("/api/auth/applicants/signup", applicant);
   }
 
   getApplicant(id) {

@@ -16,11 +16,7 @@ class EnterpriseService {
     return axios.get(API_URL + "/users/" + idUser, authHeader());
   }
   createEnterprise(enterprise) {
-    return axios.post(
-      API_URL + "/enterprises/signup",
-      enterprise,
-      authHeader()
-    );
+    return axios.post("/api/auth/enterprises/signup", enterprise, authHeader());
   }
 
   updateEnterprise(id, enterprise) {
