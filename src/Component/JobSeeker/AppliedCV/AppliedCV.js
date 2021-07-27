@@ -63,7 +63,9 @@ export default class AppliedCV extends Component {
                         </p>
                       </Col>
 
-                      <Col>
+                      <Col
+                        style={{ display: "flex", justifyContent: "flex-end" }}
+                      >
                         <Button
                           variant="outline-danger"
                           size="sm"

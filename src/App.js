@@ -19,31 +19,130 @@ import RegisterEmployer from "./Component/Register/RegisterEmployer";
 import RegisterJobSeeker from "./Component/Register/RegisterJobSeeker";
 import RouterEmployer from "./Component/RouterEmployer";
 import RouterUser from "./Component/RouteUser";
+
+import Dashboard from "./Component/Admin/Dashboard/Dashboard";
+import Profile from "./Component/Admin/Profile/Profile";
+import Applicant from "./Component/Admin/Applicant/Applicant";
+import "react-toastify/dist/ReactToastify.css";
+import LoginAdmin from "./Component/Admin/Login";
+import PrivateRoute from "./Component/Admin/PrivateRoute";
+import Enterprise from "./Component/Admin/Enterprise/Enterprise";
+import Career from "./Component/Admin/Career/Career";
 class App extends Component {
   render() {
     return (
       <Router>
         <Switch>
           <Route exact path="/" component={Home} />
-          <Route exact path="/nguoi-tim-viec/tim-kiem-cong-viec" component={JobSeekerJobSearch} />
+          <Route
+            exact
+            path="/nguoi-tim-viec/tim-kiem-cong-viec"
+            component={JobSeekerJobSearch}
+          />
           <Route exact path="/dang-nhap" component={Login} />
-          <Route exact path="/dang-ky/nguoi-tim-viec" component={RegisterJobSeeker} />
-          <Route exact path="/dang-ky/nha-tuyen-dung" component={RegisterEmployer} />
+          <Route
+            exact
+            path="/dang-ky/nguoi-tim-viec"
+            component={RegisterJobSeeker}
+          />
+          <Route
+            exact
+            path="/dang-ky/nha-tuyen-dung"
+            component={RegisterEmployer}
+          />
           <Route exact path="/nguoi-tim-viec" component={JobSeekerIndex} />
-          <RouterUser exact path="/nguoi-tim-viec/quan-ly-tai-khoan" component={AccountManage1} />
-          <Route exact path="/nguoi-tim-viec/tim-kiem-cong-viec" component={JobSeekerJobSearch} />
-          <RouterUser exact path="/nguoi-tim-viec/ho-so-da-nop" component={AppliedCV} />
-          <RouterUser exact path="/nguoi-tim-viec/cong-viec-da-luu" component={SavedJob} />
-          <Route path="/nguoi-tim-viec/chi-tiet-cong-viec/:id" component={JobDetail} />
-          <Route exact path="/nguoi-tim-viec/chi-tiet-cong-ty/:id" component={CompanyDetail} />
+          <RouterUser
+            exact
+            path="/nguoi-tim-viec/quan-ly-tai-khoan"
+            component={AccountManage1}
+          />
+          <Route
+            exact
+            path="/nguoi-tim-viec/tim-kiem-cong-viec"
+            component={JobSeekerJobSearch}
+          />
+          <RouterUser
+            exact
+            path="/nguoi-tim-viec/ho-so-da-nop"
+            component={AppliedCV}
+          />
+          <RouterUser
+            exact
+            path="/nguoi-tim-viec/cong-viec-da-luu"
+            component={SavedJob}
+          />
+          <Route
+            path="/nguoi-tim-viec/chi-tiet-cong-viec/:id"
+            component={JobDetail}
+          />
+          <Route
+            exact
+            path="/nguoi-tim-viec/chi-tiet-cong-ty/:id"
+            component={CompanyDetail}
+          />
 
-          <RouterEmployer exact path="/nha-tuyen-dung" component={EmployerIndex} />
-          <RouterEmployer exact path="/nha-tuyen-dung/quan-ly-tai-khoan" component={AccountManage2} />
-          <RouterEmployer exact path="/nha-tuyen-dung/dang-tin" component={JobPost} />
+          <RouterEmployer
+            exact
+            path="/nha-tuyen-dung"
+            component={EmployerIndex}
+          />
+          <RouterEmployer
+            exact
+            path="/nha-tuyen-dung/quan-ly-tai-khoan"
+            component={AccountManage2}
+          />
+          <RouterEmployer
+            exact
+            path="/nha-tuyen-dung/dang-tin"
+            component={JobPost}
+          />
 
-          <RouterEmployer exact path="/nha-tuyen-dung/kiem-duyet-ho-so" component={CVReview} />
-          <Route exact path="/nha-tuyen-dung/chi-tiet-ho-so/:id" component={CVDetail} />
-          <RouterEmployer exact path="/nha-tuyen-dung/ho-so-da-nhan" component={CVApproved} />
+          <RouterEmployer
+            exact
+            path="/nha-tuyen-dung/kiem-duyet-ho-so"
+            component={CVReview}
+          />
+          <Route
+            exact
+            path="/nha-tuyen-dung/chi-tiet-ho-so/:id"
+            component={CVDetail}
+          />
+          <RouterEmployer
+            exact
+            path="/nha-tuyen-dung/ho-so-da-nhan"
+            component={CVApproved}
+          />
+
+          {/* Admin */}
+          <Route exact path="/admin/login">
+            <LoginAdmin />
+          </Route>
+
+          <PrivateRoute
+            exact
+            path="/admin/thong-ke"
+            component={Dashboard}
+          ></PrivateRoute>
+          <PrivateRoute
+            exact
+            path="/admin/thong-tin"
+            component={Profile}
+          ></PrivateRoute>
+          <PrivateRoute
+            exact
+            path="/admin/ung-vien"
+            component={Applicant}
+          ></PrivateRoute>
+          <PrivateRoute
+            exact
+            path="/admin/doanh-nghiep"
+            component={Enterprise}
+          ></PrivateRoute>
+          <PrivateRoute
+            exact
+            path="/admin/nganh-nghe"
+            component={Career}
+          ></PrivateRoute>
         </Switch>
       </Router>
     );
